@@ -1,0 +1,76 @@
+package baekjoon.bj14000;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+//그대, 그머가 되어
+public class BJ14496 {
+	static class Pair {
+		int v, t;
+		Pair(int v, int t) {
+			this.v = v;
+			this.t = t;
+		}
+	}
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+		int A = Integer.parseInt(st.nextToken());
+		int B = Integer.parseInt(st.nextToken());
+		
+		st = new StringTokenizer(br.readLine(), " ");
+		int N = Integer.parseInt(st.nextToken());
+		int M = Integer.parseInt(st.nextToken());
+		
+		List<List<Integer>> graph = new ArrayList<>();
+		for(int i = 0; i < N + 1; i++) {
+			graph.add(new ArrayList<>());
+		}
+		
+		for(int i = 0; i < M; i++) {
+			st = new StringTokenizer(br.readLine(), " ");
+			int a = Integer.parseInt(st.nextToken());
+			int b = Integer.parseInt(st.nextToken());
+			graph.get(a).add(b);
+			graph.get(b).add(a);
+		}
+		
+		boolean[] chk = new boolean[N + 1];
+		Queue<Pair> queue = new LinkedList<>();
+		chk[A] = true;
+		queue.add(new Pair(A, 0));
+		while(!queue.isEmpty()) {
+			Pair p = queue.poll();
+			
+			if(p.v == B) {
+				bw.write(p.t + "\n");
+				break;
+			}
+			
+			for(int next : graph.get(p.v)) {
+				if(!chk[next]) {
+					chk[next] = true;
+					queue.add(new Pair(next, p.t + 1));
+				}
+			}
+		}
+		
+		if(!chk[B]) {
+			bw.write("-1\n");
+		}
+		
+		bw.flush();
+		bw.close();
+		br.close();
+	}
+}
