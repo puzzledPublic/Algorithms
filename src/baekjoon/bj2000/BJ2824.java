@@ -34,9 +34,10 @@ public class BJ2824 {
 			getPrimes(num, primesB);
 		}
 		
+		//A와 B의 소인수 분해 결과 정렬
 		Collections.sort(primesA);
 		Collections.sort(primesB);
-		
+
 		int a = 0, b = 0;
 		long result = 1;
 		boolean over = false;
@@ -44,7 +45,7 @@ public class BJ2824 {
 			int an = primesA.get(a);
 			int bn = primesB.get(b);
 			if(an == bn) {
-				if(result * an > 1_000_000_000L) {	//9자리를 넘어가는 숫자인 경우를 기억
+				if(result * an >= 1_000_000_000L) {	//9자리를 넘어가는 숫자인 경우를 기억
 					over = true;
 				}
 				result = (result * an) % 1_000_000_000L;
@@ -56,7 +57,7 @@ public class BJ2824 {
 				b++;
 			}
 		}
-		
+
 		if(over) {	//최대공약수가 9자리가 넘어간 경우 10억으로 나머지 값을 구했기 때문에 앞의 0을 채워줘야한다.
 			String str = Long.toString(result);
 			for(int i = 0; i < 9 - str.length(); i++) {

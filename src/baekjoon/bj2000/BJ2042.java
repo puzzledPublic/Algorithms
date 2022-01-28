@@ -19,7 +19,7 @@ public class BJ2042 {
 		indexTree = new long[N + 1];
 		
 		for(int i = 1; i < N + 1; i++) {
-			A[i] = Integer.parseInt(br.readLine());
+			A[i] = Long.parseLong(br.readLine());
 			add(i, A[i]);
 		}
 		
