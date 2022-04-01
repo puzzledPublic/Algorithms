@@ -106,7 +106,7 @@ public class PathOfLightCycle {
                                     arr[nx][ny][dd][2] = idx - arr[nx][ny][dd][0];
                                     result.add(idx - arr[nx][ny][dd][0]);
                                     find = true;
-                                }else { //확인된 사이클 경로임을 체크
+                                }else { //한번 더 돌면서 확인된 사이클 경로임을 체크
                                     arr[nx][ny][dd][1] = 1;
                                 }
                             }
